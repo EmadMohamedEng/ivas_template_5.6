@@ -24,10 +24,12 @@ return [
     'edit' => 'تعديل',
     'save' => 'حفظ',
     'cancel' => 'ألغاء',
+    
     'roles' => [
         'edit-role' => 'تعديل الدور',
         'role-name' => 'أسم الدور',
     ],
+
     'help' => 'المساعده',
     'settings' => 'ألاعدادات',
     'profile' => 'ألحساب',
@@ -165,8 +167,8 @@ return [
         'no_selected_item' => 'لم يتم إختيار أي عنصر',
         'deleted' => 'تم الحذف بنجاح'
     ],
-     'notification' => 'اشعار' , 
-    
+     'notification' => 'اشعار' ,
+
     'reports' => 'تقارير' ,
     'direct-message' => 'رسالة سريعة'
     ,
