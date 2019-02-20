@@ -24,12 +24,10 @@ return [
     'edit' => 'تعديل',
     'save' => 'حفظ',
     'cancel' => 'ألغاء',
-    
     'roles' => [
         'edit-role' => 'تعديل الدور',
         'role-name' => 'أسم الدور',
     ],
-
     'help' => 'المساعده',
     'settings' => 'ألاعدادات',
     'profile' => 'ألحساب',
