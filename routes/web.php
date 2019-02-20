@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+get_static_routes() ;
+get_dynamic_routes();
