@@ -9,7 +9,7 @@ View Content
 
 <div class="row">
     <div class="col-ms-12">
-        <div class="embed-responsive embed-responsive-16by9">  
+        <div class="embed-responsive embed-responsive-16by9">
             <div class="">
                 <div id="elfinder"></div>
             </div>
@@ -30,7 +30,10 @@ View Content
         // Documentation for client options:
         // https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
         defaultOpts: {
-            url: '{{ url("admin/elfinder") }}' // connector URL (REQUIRED)
+            url: '{{ url("admin/elfinder") }}' ,// connector URL (REQUIRED)
+            customHeaders : {
+                  'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+            }
             , commandsOptions: {
                 edit: {
                     extraOptions: {
@@ -47,7 +50,7 @@ View Content
                     googleDocsMimes: ['application/pdf', 'image/tiff', 'application/vnd.ms-office', 'application/msword', 'application/vnd.ms-word', 'application/vnd.ms-excel', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
                 }
             }
-            // bootCalback calls at before elFinder boot up 
+            // bootCalback calls at before elFinder boot up
             , bootCallback: function (fm, extraObj) {
                 /* any bind functions etc. */
                 fm.bind('init', function () {

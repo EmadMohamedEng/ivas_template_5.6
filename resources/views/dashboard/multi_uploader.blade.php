@@ -17,7 +17,7 @@
                 </div>
                 <div class="box-content">
                     <form name="form_id" id="form_id" class="form-horizontal" action="javascript:void(0);" enctype="multipart/form-data" >
-
+                      {{ csrf_field() }}
                         <div class="col-md-12">
                             <fieldset><legend> Items </legend>
 
@@ -45,9 +45,9 @@
 
                         <div class="form-group">
                             <label class="col-sm-5 text-right">&nbsp;</label>
-                            <div class="col-sm-6"> 
+                            <div class="col-sm-6">
                                 <button type="submit" name="submit" class="btn btn-success btn-sm" ><i class="fa  fa-save "></i> Save</button>
-                                <button type="button" onclick="location.href='{{url('dashboard/upload_items')}}' " class="btn btn-danger btn-sm "><i class="fa  fa-arrow-circle-left "></i>Cancel</button>
+                                <button type="button" onclick="location.href='{{url('upload_items')}}' " class="btn btn-danger btn-sm "><i class="fa  fa-arrow-circle-left "></i>Cancel</button>
                             </div>
 
                         </div>

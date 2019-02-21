@@ -48,6 +48,7 @@
         <!--flaty css styles-->
         <link rel="stylesheet" href="{{url('css/flaty.css')}}">
         <link rel="stylesheet" href="{{url('css/flaty-responsive.css')}}">
+
         {{-- {{dd(App::getLocale())}} --}}
         @if(App::getLocale() == 'ar')
         <link rel="stylesheet" type="text/css" href="{{url('css/rtl.css')}}">
@@ -55,6 +56,7 @@
         @endif
 
         <link rel="shortcut icon" href="{{url('img/favicon.png')}}">
+        <meta name="token" content="{{ csrf_token() }}">
         <script>
 function ConfirmDelete()
 {
