@@ -33,7 +33,10 @@ View Content
             url: '{{ url("admin/elfinder") }}' ,// connector URL (REQUIRED)
             customHeaders : {
                   'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
-            }
+            },
+            customData: {
+                  '_token': $('meta[name="token"]').attr('content')
+                }
             , commandsOptions: {
                 edit: {
                     extraOptions: {

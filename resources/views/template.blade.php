@@ -57,7 +57,13 @@
 
         <link rel="shortcut icon" href="{{url('img/favicon.png')}}">
         <meta name="token" content="{{ csrf_token() }}">
+
         <script>
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+                }
+        });
 function ConfirmDelete()
 {
     var x = confirm("Are you sure you want to delete?");
