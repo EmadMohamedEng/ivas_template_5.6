@@ -15,7 +15,7 @@ class AddParentIdToCategory extends Migration
     {
       Schema::table('categories', function(Blueprint $table)
       {
-        $table->Integer('parent_id')->unsigned();
+        $table->Integer('parent_id')->unsigned()->nullable();
         $table->foreign('parent_id')->references('id')->on('categories')->onUpdate('CASCADE')->onDelete('CASCADE');
       });
     }

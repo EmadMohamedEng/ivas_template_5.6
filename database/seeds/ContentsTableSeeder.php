@@ -50,6 +50,17 @@ class ContentsTableSeeder extends Seeder
                 'created_at' => '2019-02-19 09:15:20',
                 'updated_at' => '2019-02-19 15:34:22',
             ),
+            3 => 
+            array (
+                'id' => 14,
+                'title' => 'content 4',
+                'path' => '155100965718.png',
+                'image_preview' => NULL,
+                'content_type_id' => 3,
+                'category_id' => 3,
+                'created_at' => '2019-02-24 12:00:57',
+                'updated_at' => '2019-02-24 12:00:57',
+            ),
         ));
         
         

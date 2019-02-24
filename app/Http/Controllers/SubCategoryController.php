@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
 use App\Category;
 use Validator;
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categorys = Category::whereNull('parent_id')->get();
-        return view('category.index',compact('categorys'));
+      $sub_categorys = Category::whereNotNull('parent_id')->get();
+      return view('sub_category.index',compact('sub_categorys'));
     }
 
     /**
@@ -29,8 +26,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $category = null;
-        return view('category.form',compact('category'));
+      $category = null;
+      $parents = Category::whereNull('parent_id')->get();
+      return view('sub_category.form',compact('category','parents'));
     }
 
     /**
@@ -43,6 +41,7 @@ class CategoryController extends Controller
     {
       $validator = Validator::make($request->all(), [
                   'title' => 'required|string',
+                  'parent_id' => 'required|exists:categories,id',
                   'image' => ''
           ]);
 
@@ -63,8 +62,8 @@ class CategoryController extends Controller
 
       $category = Category::create($request->all());
 
-      \Session::flash('success', 'Category Created Successfully');
-      return redirect('/category');
+      \Session::flash('success', 'Sub Category Created Successfully');
+      return redirect('/sub_category');
     }
 
     /**
@@ -75,9 +74,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
-        $contents = $category->contents;
-        return view('category.show_content',compact('contents','category'));
+      $category = Category::findOrFail($id);
+      $sub_categorys = $category->sub_cats;
+      return view('sub_category.show_sub_category',compact('sub_categorys'));
     }
 
     /**
@@ -88,8 +87,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
-        return view('category.form',compact('category'));
+      $category = Category::findOrFail($id);
+      $parents = Category::whereNull('parent_id')->get();
+      return view('sub_category.form',compact('category','parents'));
     }
 
     /**
@@ -103,6 +103,7 @@ class CategoryController extends Controller
     {
       $validator = Validator::make($request->all(), [
                   'title' => 'required|string',
+                  'parent_id' => 'required|exists:categories,id',
                   'image' => ''
           ]);
 
@@ -124,8 +125,8 @@ class CategoryController extends Controller
 
       $category->update($request->all());
 
-      \Session::flash('success', 'Category Updated Successfully');
-      return redirect('/category');
+      \Session::flash('success', 'Sub Category Updated Successfully');
+      return redirect('/sub_category');
     }
 
     /**
@@ -143,7 +144,7 @@ class CategoryController extends Controller
       }
       $category->delete();
 
-      \Session::flash('success', 'Category Delete Successfully');
+      \Session::flash('success', 'Sub Category Delete Successfully');
       return back();
     }
 }
