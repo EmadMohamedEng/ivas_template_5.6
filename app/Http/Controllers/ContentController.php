@@ -220,11 +220,11 @@ class ContentController extends Controller
     {
       $content = Content::findOrFail($id);
 
-      if($request->image_preview){
+      if($content->image_preview){
         $this->delete_image_if_exists(base_path('/uploads/content/image/'.basename($content->image_preview)));
       }
 
-      if($request->path){
+      if($content->path){
         $this->delete_image_if_exists(base_path('/uploads/content/path/'.basename($content->path)));
       }
 
