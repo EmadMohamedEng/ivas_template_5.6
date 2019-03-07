@@ -336,7 +336,7 @@ public function seed_manager() {
         if($tables){
             ini_set('max_execution_time', 300);
             foreach ($tables as $table) {
-                $command = "php artisan iseed $table --force";
+                $command = "E:/php7.2/xampp/php/php.exe  artisan iseed $table --force";
                 $ex = exec($command);
                 if(empty($ex)){
                     \Session::flash('failed', 'Please Add orangehill/iseed Package First');
