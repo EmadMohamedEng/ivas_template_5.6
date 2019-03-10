@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categorys = Category::all();
+        $categorys = Category::whereNull('parent_id')->get();
         return view('category.index',compact('categorys'));
     }
 
@@ -77,7 +77,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $contents = $category->contents;
-        return view('category.show_content',compact('contents','category'));
+        return view('content.index',compact('contents','category'));
     }
 
     /**

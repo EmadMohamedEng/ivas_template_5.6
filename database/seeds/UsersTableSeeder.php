@@ -12,12 +12,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('users')->delete();
-
+        
         \DB::table('users')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'name' => 'super admin',
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => '2018-11-26 08:11:50',
             ),
         ));
-
-
+        
+        
     }
 }

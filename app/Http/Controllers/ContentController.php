@@ -98,7 +98,33 @@ class ContentController extends Controller
           $frame->save($image_preview);
         }
       }
+      else if($request->content_type_id ==6)
+      {
+        if(filter_var($request->path, FILTER_VALIDATE_URL) == false)
+        {
+          \Session::flash('failed','The Content Must be Valid Url');
+          return back();
+        }
 
+        if(!$request->image_preview)
+        {
+          $image_name = time().rand(0,999);
+          $link = explode('embed/',$request->path);
+          if(isset($link[1]))
+          {
+            $y_id = explode('?',$link[1]);
+            file_put_contents(base_path('/uploads/content/image/'.$image_name.'.jpg') , file_get_contents('http://img.youtube.com/vi/'.$y_id[0].'/maxresdefault.jpg'));
+          }
+          else
+          {
+            $link = explode('?v=',$request->path);
+            file_put_contents(base_path('/uploads/content/image/'.$image_name.'.jpg') , file_get_contents('http://img.youtube.com/vi/'.$link[1].'/maxresdefault.jpg'));
+            $request->request->add(['path' => 'http://www.youtube.com/embed/'.$link[1].'?rel=0']);
+          }
+          $request->request->add(['image_preview' => $image_name]);
+        }
+
+      }
       $content = Content::create($request->all());
 
       \Session::flash('success', 'Content Created Successfully');
@@ -154,13 +180,86 @@ class ContentController extends Controller
 
       $content = Content::findOrFail($id);
 
-      if($content->image_preview){
+      if($request->image_preview){
         $this->delete_image_if_exists(base_path('/uploads/content/image/'.basename($content->image_preview)));
       }
 
-      if($content->path){
-        $this->delete_image_if_exists(base_path('/uploads/content/path/'.basename($content->path)));
+      if($request->path){
+          if($request->content_type_id == 3)
+          {
+            $imgExtensions = array("png","jpeg","jpg");
+            $file = $request->path;
+            if(! in_array($file->getClientOriginalExtension(),$imgExtensions))
+            {
+                \Session::flash('failed','Image must be jpg, png, or jpeg only !! No updates takes place, try again with that extensions please..');
+                return back();
+            }
+          }
+          else if($request->content_type_id == 4)
+          {
+            $audExtensions = array("mp3","webm","wav");
+            $file = $request->path;
+            if(! in_array($file->getClientOriginalExtension(),$audExtensions))
+            {
+                \Session::flash('failed','Audio must be mp3, webm and wav only !! No updates takes place, try again with that extensions please..');
+                return back() ;
+            }
+          }
+          else if($request->content_type_id ==5)
+          {
+            $vidExtensions = array("mp4","flv","3gp");
+            $file = $request->path;
+            if(! in_array($file->getClientOriginalExtension(),$vidExtensions))
+            {
+                \Session::flash('failed','Video must be mp4, flv, or 3gp only !! No updates takes place, try again with that extensions please..');
+                return back();
+            }
+            if(!$request->image_preview)
+            {
+              $ffmpeg = FFMpeg\FFMpeg::create();
+              $video = $ffmpeg->open($request->path);
+              $frame = $video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(2));
+              $image_name = time().rand(0,999);
+              $image_preview = base_path('/uploads/content/image/'.$image_name.'.jpg');
+              $request->request->add(['image_preview' => $image_name]);
+              $frame->save($image_preview);
+            }
+          }
+          else if($request->content_type_id ==6)
+          {
+            if(filter_var($request->path, FILTER_VALIDATE_URL) == false)
+            {
+              \Session::flash('failed','The Content Must be Valid Url');
+              return back();
+            }
+
+            if(!$request->image_preview)
+            {
+              $image_name = time().rand(0,999);
+              $link = explode('embed/',$request->path);
+              if(isset($link[1]))
+              {
+                $y_id = explode('?',$link[1]);
+                file_put_contents(base_path('/uploads/content/image/'.$image_name.'.jpg') , file_get_contents('http://img.youtube.com/vi/'.$y_id[0].'/maxresdefault.jpg'));
+              }
+              else
+              {
+                $link = explode('?v=',$request->path);
+                file_put_contents(base_path('/uploads/content/image/'.$image_name.'.jpg') , file_get_contents('http://img.youtube.com/vi/'.$link[1].'/maxresdefault.jpg'));
+                $request->request->add(['path' => 'http://www.youtube.com/embed/'.$link[1].'?rel=0']);
+              }
+              $request->request->add(['image_preview' => $image_name]);
+              //delete old image_preview
+              if($content->image_preview){
+                $this->delete_image_if_exists(base_path('/uploads/content/image/'.basename($content->image_preview)));
+              }
+            }
+
+          }
+          $this->delete_image_if_exists(base_path('/uploads/content/path/'.basename($content->path)));
       }
+
+
 
       $content->update($request->all());
 
