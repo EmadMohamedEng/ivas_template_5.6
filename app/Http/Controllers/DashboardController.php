@@ -353,6 +353,31 @@ public function seed_manager() {
 
     }
 
+    public function migrate_manager()
+    {
+        $tables = array_map('reset', \DB::select('SHOW TABLES'));
+        return view('dashboard.migrate_manager', compact('tables'));
+    }
+    public function migrate_tables(Request $request)
+    {
+
+        $tables = $request->tables;
+        if($tables)
+        {
+          $table_migrate=implode(',',$tables);
+          //return $table_migrate;
+          $command = "E:/php7.2/xampp/php/php.exe artisan migrate:generate $table_migrate -n";
+          $ex = exec($command);
+          \Session::flash('success', 'Created a Migrate file from tables successfully');
+          return redirect('dashboard');
+        }
+        else
+        {
+           \Session::flash('failed', 'Please Choose Table to Seed');
+            return back();
+        }
+    }
+
 
  public function test()
     {

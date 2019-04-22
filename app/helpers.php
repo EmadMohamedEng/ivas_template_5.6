@@ -77,6 +77,8 @@ Route::get('/test','DashboardController@test');
         Route::post('admin/elfinder', 'ElfinderController@getIndex');
          Route::get('admin/seed_manager', 'DashboardController@seed_manager');
         Route::post('admin/seed_tables', 'DashboardController@seed_tables');
+        Route::get('admin/migrate_manager', 'DashboardController@migrate_manager');
+        Route::post('admin/migrate_tables', 'DashboardController@migrate_tables');
     });
 
 
