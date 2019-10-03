@@ -41,11 +41,11 @@ class SettingsTableSeeder extends Seeder
             array (
                 'id' => 28,
                 'key' => 'content_type_flag',
-                'value' => '1',
-                'created_at' => '2019-03-07 09:45:49',
-                'updated_at' => '2019-03-07 09:55:28',
+                'value' => '0',
+                'created_at' => '2019-03-07 10:50:04',
+                'updated_at' => '2019-03-14 08:54:06',
                 'type_id' => 7,
-                'order' => NULL,
+                'order' => 0,
             ),
         ));
         

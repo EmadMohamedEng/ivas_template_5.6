@@ -39,7 +39,6 @@
                                         <th>content</th>
                                         <th>published date</th>
                                         <th>Status</th>
-                                        <th>patch number</th>
                                         <th>url</th>
                                         <th>user</th>
                                         <th >Action</th>
@@ -55,7 +54,6 @@
                                         </td>
                                         <td>{{$value->pivot->published_date}}</td>
                                         <td>@if($value->pivot->active) active @else not active @endif</td>
-                                        <td>{{$value->pivot->patch_number}}</td>
                                         <td>
                                           <input type="text"  id="url_h{{$value->id}}{{$key}}{{$value->pivot->id}}" value="{{$value->pivot->url}}">
                                           <span class="btn">{{$value->country->title}}-{{$value->name}}</span>

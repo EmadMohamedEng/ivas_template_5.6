@@ -50,6 +50,7 @@ class ContentController extends Controller
                   'title' => 'required|string',
                   'content_type_id' => 'required',
                   'category_id' => 'required',
+                  'patch_number' => 'required',
                   'path' => 'required',
                   'image_preview' => ''
           ]);
@@ -98,6 +99,7 @@ class ContentController extends Controller
           $frame->save($image_preview);
         }
       }
+
       else if($request->content_type_id ==6)
       {
         if(filter_var($request->path, FILTER_VALIDATE_URL) == false)
@@ -128,7 +130,7 @@ class ContentController extends Controller
       $content = Content::create($request->all());
 
       \Session::flash('success', 'Content Created Successfully');
-      return redirect('/content');
+      return redirect('category/'.$request->category_id);
     }
 
     /**
@@ -169,6 +171,7 @@ class ContentController extends Controller
       $validator = Validator::make($request->all(), [
                   'title' => 'required|string',
                   'content_type_id' => 'required',
+                  'patch_number' => 'required',
                   'category_id' => 'required',
                   'path' => '',
                   'image_preview' => ''
@@ -223,7 +226,13 @@ class ContentController extends Controller
               $image_preview = base_path('/uploads/content/image/'.$image_name.'.jpg');
               $request->request->add(['image_preview' => $image_name]);
               $frame->save($image_preview);
+              //delete old image_preview
+              if($content->image_preview){
+                $this->delete_image_if_exists(base_path('/uploads/content/image/'.basename($content->image_preview)));
+              }
             }
+            //delete ol path
+            $this->delete_image_if_exists(base_path('/uploads/content/path/'.basename($content->path)));
           }
           else if($request->content_type_id ==6)
           {
@@ -256,7 +265,6 @@ class ContentController extends Controller
             }
 
           }
-          $this->delete_image_if_exists(base_path('/uploads/content/path/'.basename($content->path)));
       }
 
 
@@ -264,7 +272,7 @@ class ContentController extends Controller
       $content->update($request->all());
 
       \Session::flash('success', 'Content Updated Successfully');
-      return redirect('/content');
+      return redirect('category/'.$request->category_id);
     }
 
     /**
