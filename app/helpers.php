@@ -54,6 +54,7 @@ Route::get('/test','DashboardController@test');
     Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
 
     Route::get('/','DashboardController@index');
+    Route::get('imageup','DashboardController@imageup');
 
     Route::group(['middleware'=> 'auth'],function(){
     Route::resource('static_translation','\App\Http\Controllers\StaticTranslationController');

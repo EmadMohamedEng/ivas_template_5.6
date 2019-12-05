@@ -34,6 +34,12 @@ class DashboardController extends Controller
         return view('dashboard.index',compact('users')) ;
     }
 
+
+    public function imageup()
+    {
+    return view('dashboard.imageup');
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
