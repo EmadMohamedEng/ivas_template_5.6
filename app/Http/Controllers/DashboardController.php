@@ -35,11 +35,11 @@ class DashboardController extends Controller
     }
 
 
-    public function imageup()
+    public function JICindex()
     {
-    return view('dashboard.imageup');
+    return view('JIC.index');
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
