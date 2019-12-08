@@ -385,10 +385,14 @@ public function seed_manager() {
     }
 
 
- public function test()
+    public function test()
     {
         echo (new TesseractOCR( public_path().'/text.png'))->run();
     }
 
+    public function JICindex()
+    {
+       return view('JIC.index');
+    }
 
 }
